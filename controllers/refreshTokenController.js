@@ -26,6 +26,10 @@ const handleRefreshToken = async (req, res) => {
     );
     return res.sendStatus(403); //Forbidden
   }
+
+  const newRefreshTokenArray = foundUser.refreshToken.filter(
+    rt => rt !== refreshToken,
+  );
 };
 
 module.exports = { handleRefreshToken };
