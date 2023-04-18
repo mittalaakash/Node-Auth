@@ -43,8 +43,23 @@ const updateEmployee = async (req, res) => {
   res.json(result);
 };
 
+const deleteEmployee = async (req, res) => {
+  if (!req?.body?.id)
+    return res.status(400).json({ message: 'Employee ID required.' });
+
+  const employee = await Employee.findOne({ _id: req.body.id }).exec();
+  if (!employee) {
+    return res
+      .status(204)
+      .json({ message: `No employee matches ID ${req.body.id}.` });
+  }
+  const result = await employee.deleteOne(); //{ _id: req.body.id }
+  res.json(result);
+};
+
 module.exports = {
   getAllEmployees,
   createNewEmployee,
   updateEmployee,
+  deleteEmployee,
 };
