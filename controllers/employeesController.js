@@ -57,9 +57,23 @@ const deleteEmployee = async (req, res) => {
   res.json(result);
 };
 
+const getEmployee = async (req, res) => {
+  if (!req?.params?.id)
+    return res.status(400).json({ message: 'Employee ID required.' });
+
+  const employee = await Employee.findOne({ _id: req.params.id }).exec();
+  if (!employee) {
+    return res
+      .status(204)
+      .json({ message: `No employee matches ID ${req.params.id}.` });
+  }
+  res.json(employee);
+};
+
 module.exports = {
   getAllEmployees,
   createNewEmployee,
   updateEmployee,
   deleteEmployee,
+  getEmployee,
 };
