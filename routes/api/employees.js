@@ -10,6 +10,10 @@ router
   .post(
     verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor),
     employeesController.createNewEmployee,
+  )
+  .put(
+    verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor),
+    employeesController.updateEmployee,
   );
 
 module.exports = router;
